@@ -15,7 +15,14 @@ type userController struct {}
 var User userController;
 
 func (user userController) GetAll(w http.ResponseWriter, r *http.Request) {
-  w.Write([]byte("TODO"))
+  var users []models.User
+
+  err := services.UserService.GetAll(&users)
+  if err != nil {
+    w.WriteHeader(http.StatusBadRequest)
+    return
+  }
+  json.NewEncoder(w).Encode(users)
 }
 
 func (_ userController) Find(w http.ResponseWriter, r *http.Request) {
