@@ -1,18 +1,34 @@
 package router
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
+type Route struct {
+  URI string
+  method string
+  function func(w http.ResponseWriter, r *http.Request)
+  authenticationRequired bool
+}
+
 func GetRoutes() *mux.Router{
-  route := mux.NewRouter()
+  muxRoute := mux.NewRouter()
 
-  route.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    json.NewEncoder(w).Encode(map[string]string{ "message": "hello world"})
-  }).Methods(http.MethodGet)
+  var routesArray = [][]Route {
+    UserRoutes,
+  }
 
-  return route;
+  for _, sliceRoute := range routesArray {
+    executeSliceRoutes(sliceRoute, muxRoute)
+  }
+
+  return muxRoute;
+}
+
+func executeSliceRoutes(sliceRoute []Route, muxRoute *mux.Router){
+  for _, route := range sliceRoute {
+    muxRoute.HandleFunc(route.URI, route.function).Methods(route.method)
+  }
 }
