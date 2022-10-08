@@ -3,16 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/caiogomesdev/devbook-golang/internal/migration"
+	"github.com/caiogomesdev/devbook-golang/internal/routes"
 
 	"github.com/joho/godotenv"
 )
-
-type User struct {
-  Name string
-}
 
 func executeArg(args []string){
     if args[1] == "migrate"{
@@ -32,5 +30,8 @@ func main(){
 	args := os.Args
   if len(args) >= 2 {
     executeArg(args);
+    return;
   }
+  port := fmt.Sprintf(":%s", os.Getenv("API_PORT"));
+  log.Fatal(http.ListenAndServe(port, routes.GetRoutes()))
 }
