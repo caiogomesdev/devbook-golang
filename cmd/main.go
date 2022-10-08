@@ -6,10 +6,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/caiogomesdev/devbook-golang/internal/config"
 	"github.com/caiogomesdev/devbook-golang/internal/migration"
 	"github.com/caiogomesdev/devbook-golang/internal/router"
-
-	"github.com/joho/godotenv"
 )
 
 func executeArg(args []string){
@@ -22,16 +21,13 @@ func executeArg(args []string){
 }
 
 func main(){
-  err := godotenv.Load();
-  if err != nil {
-    message := fmt.Sprintf("Error to Load .env file")
-    log.Fatal(message)
-  }
+  config.Init()
 	args := os.Args
   if len(args) >= 2 {
     executeArg(args);
     return;
   }
-  port := fmt.Sprintf(":%s", os.Getenv("API_PORT"));
+  port := fmt.Sprintf(":%s", config.Env.Api.PORT);
+  fmt.Println(fmt.Sprintf("Server is running on PORT%s", port))
   log.Fatal(http.ListenAndServe(port, router.GetRoutes()))
 }

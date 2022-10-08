@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/caiogomesdev/devbook-golang/internal/config"
-	"github.com/caiogomesdev/devbook-golang/internal/entity"
+	"github.com/caiogomesdev/devbook-golang/internal/models"
 )
 
 func Migrate() {
@@ -13,7 +13,7 @@ func Migrate() {
   if err != nil {
     log.Fatal("Error configuring database")
   }
-  err = db.Migrator().AutoMigrate(entity.User{})
+  err = db.Migrator().AutoMigrate(models.User{})
   if err != nil {
     log.Fatal(fmt.Sprintf("Error to migrator: %v", err));
   }

@@ -1,7 +1,6 @@
-package controller
+package controllers
 
 import "net/http"
-
 
 type userController struct {}
 

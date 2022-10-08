@@ -3,38 +3,38 @@ package router
 import (
 	"net/http"
 
-	"github.com/caiogomesdev/devbook-golang/internal/controller"
+	"github.com/caiogomesdev/devbook-golang/internal/controllers"
 )
 
 var UserRoutes = []Route{
   {
     URI: "/users",
     method: http.MethodGet,
-    function: controller.User.GetAll,
+    function: controllers.User.GetAll,
     authenticationRequired: false,
   },
   {
     URI: "/user/{id}",
     method: http.MethodGet,
-    function: controller.User.Find,
+    function: controllers.User.Find,
     authenticationRequired: false,
   },
   {
     URI: "/users",
     method: http.MethodPost,
-    function: controller.User.Create,
+    function: controllers.User.Create,
     authenticationRequired: false,
   },
   {
     URI: "/user/{id}",
     method: http.MethodPut,
-    function: controller.User.Update,
+    function: controllers.User.Update,
     authenticationRequired: false,
   },
   {
     URI: "/user/{id}",
     method: http.MethodDelete,
-    function: controller.User.Delete,
+    function: controllers.User.Delete,
     authenticationRequired: false,
   },
 }
