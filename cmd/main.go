@@ -1,16 +1,26 @@
 package main
 
 import (
-	"devbook/src/migration"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/caiogomesdev/devbook-golang/internal/migration"
 
 	"github.com/joho/godotenv"
 )
 
 type User struct {
   Name string
+}
+
+func executeArg(args []string){
+    if args[1] == "migrate"{
+      migration.Migrate()
+      return
+    }
+    fmt.Println("Comando não reconhecido")
+    return
 }
 
 func main(){
@@ -21,11 +31,6 @@ func main(){
   }
 	args := os.Args
   if len(args) >= 2 {
-    if args[1] == "migrate"{
-      migration.Migrate()
-      return
-    }
-    fmt.Println("Comando não reconhecido")
-    return
+    executeArg(args);
   }
 }

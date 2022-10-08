@@ -1,4 +1,4 @@
-module devbook
+module github.com/caiogomesdev/devbook-golang
 
 go 1.19
 

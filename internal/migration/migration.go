@@ -1,10 +1,11 @@
 package migration
 
 import (
-	"devbook/src/config"
-	"devbook/src/entity"
 	"fmt"
 	"log"
+
+	"github.com/caiogomesdev/devbook-golang/internal/config"
+	"github.com/caiogomesdev/devbook-golang/internal/entity"
 )
 
 func Migrate() {
