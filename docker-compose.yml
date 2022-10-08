@@ -1,0 +1,16 @@
+version: "3.5"
+
+services:
+  postgres:
+    image: postgres:14.3
+    restart: always
+    container_name: devbook-postgres
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=root
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
