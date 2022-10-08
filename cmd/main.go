@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/caiogomesdev/devbook-golang/internal/migration"
-	"github.com/caiogomesdev/devbook-golang/internal/routes"
+	"github.com/caiogomesdev/devbook-golang/internal/router"
 
 	"github.com/joho/godotenv"
 )
@@ -33,5 +33,5 @@ func main(){
     return;
   }
   port := fmt.Sprintf(":%s", os.Getenv("API_PORT"));
-  log.Fatal(http.ListenAndServe(port, routes.GetRoutes()))
+  log.Fatal(http.ListenAndServe(port, router.GetRoutes()))
 }
