@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/caiogomesdev/devbook-golang/internal/models"
+	"github.com/caiogomesdev/devbook-golang/internal/controllers/dto"
 	"github.com/caiogomesdev/devbook-golang/internal/services"
 	"github.com/gorilla/mux"
 )
@@ -15,7 +15,7 @@ type userController struct {}
 var User userController;
 
 func (user userController) GetAll(w http.ResponseWriter, r *http.Request) {
-  var users []models.User
+  var users []dto.UserDto
 
   err := services.UserService.GetAll(&users)
   if err != nil {
@@ -29,7 +29,7 @@ func (_ userController) Find(w http.ResponseWriter, r *http.Request) {
   params := mux.Vars(r)
   id, _ := strconv.ParseUint(params["id"], 10, 8)
 
-  var user models.User;
+  var user dto.UserDto;
   err, result := services.UserService.GetById(id, &user)
 
   if err != nil || !result {
@@ -41,7 +41,17 @@ func (_ userController) Find(w http.ResponseWriter, r *http.Request) {
 }
 
 func (user userController) Create(w http.ResponseWriter, r *http.Request) {
-  w.Write([]byte("TODO"))
+  var result dto.UserDto
+  json.NewDecoder(r.Body).Decode(&result)
+
+  err := services.UserService.Create(&result)
+
+  if err != nil {
+    w.WriteHeader(http.StatusBadRequest)
+    return
+  }
+
+  json.NewEncoder(w).Encode(result)
 }
 
 func (user userController) Update(w http.ResponseWriter, r *http.Request) {

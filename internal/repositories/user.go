@@ -1,8 +1,6 @@
 package repositories
 
 import (
-	"fmt"
-
 	"github.com/caiogomesdev/devbook-golang/internal/config"
 	"github.com/caiogomesdev/devbook-golang/internal/models"
 )
@@ -25,10 +23,18 @@ func (_ userRepository) FindAll(users *[]models.User) error {
   if err != nil {
     return err
   }
-  db1 := db.Find(&users)
-  fmt.Println(db1)
+  db.Order("id desc").Omit("password").Find(&users)
   return nil
 }
 
-
-
+func (_ userRepository) Create(userModel *models.User) error {
+  db, err := config.ConfigureDb()
+  if err != nil {
+    return err
+  }
+  gormDb := db.Create(&userModel)
+  if gormDb.Error != nil {
+    return gormDb.Error
+  }
+  return nil
+}

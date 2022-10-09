@@ -20,7 +20,7 @@ var UserRoutes = []Route{
     authenticationRequired: false,
   },
   {
-    URI: "/users",
+    URI: "/user",
     method: http.MethodPost,
     function: controllers.User.Create,
     authenticationRequired: false,
