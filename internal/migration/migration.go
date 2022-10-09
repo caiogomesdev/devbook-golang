@@ -9,11 +9,8 @@ import (
 )
 
 func Migrate() {
-  db, err := config.ConfigureDb()
-  if err != nil {
-    log.Fatal("Error configuring database")
-  }
-  err = db.Migrator().AutoMigrate(models.User{})
+  db := config.Db()
+  err := db.Migrator().AutoMigrate(models.User{})
   if err != nil {
     log.Fatal(fmt.Sprintf("Error to migrator: %v", err));
   }

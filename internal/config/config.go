@@ -43,4 +43,5 @@ func loadEnvs(){
 func Init(){
   godotenv.Load();
   loadEnvs()
+  configureDb();
 }
